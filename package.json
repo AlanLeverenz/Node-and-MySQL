@@ -1,0 +1,23 @@
+{
+  "name": "node-and-mysql",
+  "version": "1.0.0",
+  "description": "bamazon app for managing product purchases and inventory",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlanLeverenz/Node-and-MySQL.git"
+  },
+  "author": "alan-leverenz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlanLeverenz/Node-and-MySQL/issues"
+  },
+  "homepage": "https://github.com/AlanLeverenz/Node-and-MySQL#readme",
+  "dependencies": {
+    "inquirer": "^7.0.0",
+    "mysql": "^2.17.1"
+  }
+}
