@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err){
     if (err) throw err;
-    console.log("connection successful!");
+    // console.log("connection successful!");
     makeTable();
 });
 
@@ -64,10 +64,10 @@ var promptCustomer = function(res){
                         var newProdSales = res[id].product_sales;
                         newProdSales =+ res[id].price * answer.quantity;
                         connection.query("UPDATE products SET product_sales='"+newProdSales+"' WHERE productname='"+product+"'", function(err,res3){
-                            console.log("Price = " + res[id].price);
-                            console.log("Quantity = " + answer.quantity);
-                            console.log("newProdsales = "+ newProdSales);
-                            console.log("Product = " + res[id].productname);
+                            // console.log("Price = " + res[id].price);
+                            // console.log("Quantity = " + answer.quantity);
+                            // console.log("newProdsales = "+ newProdSales);
+                            // console.log("Product = " + res[id].productname);
                             makeTable();
                         }); // end function, connection.query
                     } // end it

@@ -16,7 +16,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err){
     if (err) throw err;
-    console.log("connection successful!");
+    // console.log("connection successful!");
 });
 
 // prompt : select manager task
@@ -80,12 +80,12 @@ var AddNewDepartment = function() {
         {
             name: "department",
             type: "input",
-            message: "Enter a department name."
+            message: "Enter a department name: "
         },
         {
             name: "overheadcost",
             type: "input",
-            message: "Enter its overhead cost."
+            message: "Enter its overhead cost: "
         }
 
     ]).then(function(answer) {
