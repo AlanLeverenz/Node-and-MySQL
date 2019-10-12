@@ -1,9 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 
-var mysql = require('mysql');
-var inquirer = require('inquirer');
-
 var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -20,8 +17,8 @@ connection.connect(function(err){
 
 var makeTable = function(){
     connection.query("SELECT * FROM products", function(err,res){
-        for(var i=0; i< res.length; i++){
-            console.log(res[i].itemid+" || "+res[i].productname+" || "+ res[i].departmentname+" || "+res[i].price+" || "+res[i].stockquantity+"\n");
+        for(var i=0; i<res.length; i++){
+            console.log(res[i].itemid+" || "+res[i].productname+" || "+ res[i].departmentname+" || $"+res[i].price.toFixed(2)+" || "+res[i].stockquantity );
         }
         promptCustomer(res);
     })
@@ -31,17 +28,18 @@ var promptCustomer = function(res){
     inquirer.prompt([{
         type: 'input',
         name: 'choice',
-        message: "What do you want to buy? [Quit with Q]"
+        message: "Enter the ID of the product you want to buy. [Quit with Q]"
     }]).then(function(answer){
         var correct = false;
         if(answer.choice.toUpperCase()=="Q"){
             process.exit();
         }
         for(var i=0; i<res.length; i++){
-            if(res[i].productname==answer.choice){
+            if(res[i].itemid==answer.choice){
                 correct=true;
-                var product=answer.choice;
-                var id=i;
+                var id = i;
+                var product = res[i].productname;
+
                 inquirer.prompt({
                     type: "input",
                     name: "quantity",
@@ -54,23 +52,37 @@ var promptCustomer = function(res){
                         }
                     }
                 }).then(function(answer){
-                    if( (res[id].stockquantity - answer.quantity) > 0){
-                        connection.query("UPDATE products SET stockquantity='"+(res[id].stockquantity - answer.quantity)+"' WHERE productname='"+product+"'", function(err,res2){
+
+                    if( (res[id].stockquantity-answer.quantity) > 0) {
+                        console.log("Product sales before = " + res[id].product_sales);
+                        connection.query("UPDATE products SET stockquantity='"+(res[id].stockquantity-answer.quantity)+"' WHERE productname='"+product+"'", function(err,res2){
                             console.log("Product purchased!");
+                            console.log("Quantity = " + answer.quantity);
+                            console.log("Product = " + res[id].productname);
+                        }) // end function, connection.query
+                        // set product_sales variable
+                        var newProdSales = res[id].product_sales;
+                        newProdSales =+ res[id].price * answer.quantity;
+                        connection.query("UPDATE products SET product_sales='"+newProdSales+"' WHERE productname='"+product+"'", function(err,res3){
+                            console.log("Price = " + res[id].price);
+                            console.log("Quantity = " + answer.quantity);
+                            console.log("newProdsales = "+ newProdSales);
+                            console.log("Product = " + res[id].productname);
                             makeTable();
-                        })
-                    } else {
+                        }); // end function, connection.query
+                    } // end it
+                    else {
                         console.log("Not a valid selection!");
                         promptCustomer(res);
-                    }
-                })
-            }
-        }
+                    } // end else
+                }) // end function
+            } // end if
+        } // end for
         if(i==res.length && correct==false){
             console.log("Not a valid selection!");
             promptCustomer(res);
         }
-    })
-};
+    }) // end then function
+}; // end function
 
 module.exports = { makeTable: makeTable, promptCustomer: promptCustomer };

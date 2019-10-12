@@ -2,9 +2,6 @@ var mysql = require('mysql');
 var inquirer = require('inquirer');
 var customer = require('./bamazonCustomer.js');
 
-var myCus = customer.promptCustomer;
-
-
 var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -19,6 +16,14 @@ connection.connect(function(err){
     promptUser();
 });
 
+var makeTable = function(){
+    connection.query("SELECT * FROM products", function(err,res){
+        for(var i=0; i< res.length; i++){
+            console.log(res[i].itemid+" || "+res[i].productname+" || "+ res[i].departmentname+" || "+res[i].price.toFixed(2)+" || "+res[i].stockquantity+"\n");
+        }
+        customer.promptCustomer(res);
+    })
+}
 var promptUser = function() {
     inquirer.prompt([{
         type: 'list',
@@ -30,12 +35,12 @@ var promptUser = function() {
             process.exit();
         }
         if(answer.CMS == 'Customer'){
-            myCus;
-        }
-        if(answer.CMS == 'Manager'){
+            makeTable();
+        } else if 
+        (answer.CMS == 'Manager'){
             console.log("A MANAGER!");
-        }
-        if(answer.CMS == 'Supervisor'){
+        } else if 
+        (answer.CMS == 'Supervisor'){
             console.log("A SUPERVISOR!");
         }
     })
