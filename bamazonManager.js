@@ -164,44 +164,54 @@ var promptManager = function(res){
 
 // ==== Add a new product to the store
 var AddNewProduct = function() {
-
-    inquirer.prompt([
-        {
-            name: "product",
-            type: "input",
-            message: "What product would you like to add?"
-        },
-        {
-            name: "department",
-            type: "input",
-            message: "What department is it in?"
-        },
-        {
-            name: "price",
-            type: "input",
-            message: "What is its selling price?"
-        },
-        {
-            name: "quantity",
-            type: "input",
-            message: "How many items to add to stock?"
-        }
-    ]).then(function(answer) {
-        connection.query(
-            "INSERT INTO products SET ?",
+    connection.query("SELECT * FROM departments", function(err, results) {
+        if (err) throw err;
+        inquirer.prompt([
             {
-                productname: answer.product,
-                departmentname: answer.department,
-                price: answer.price,
-                stockquantity: answer.quantity
+                name: "product",
+                type: "input",
+                message: "What product would you like to add?"
             },
-            function(err) {
-                if (err) throw err;
-                console.log("Your product was added successfully!");
-                selectManagerTask();
+            {
+                name: "department",
+                type: "rawlist",
+                choices: function() {
+                    var choiceArray = [];
+                    for (var i = 0; i < results.length; i++) {
+                      choiceArray.push(results[i].department_name);
+                    }
+                    return choiceArray;
+                  },
+                message: "Enter the department number ID."
+            },
+            {
+                name: "price",
+                type: "input",
+                message: "What is its selling price?"
+            },
+            {
+                name: "quantity",
+                type: "input",
+                message: "How many items to add to stock?"
             }
-        ); // end connection query
-    }); // end function
+        ]).then(function(answer) {
+            connection.query(
+                "INSERT INTO products SET ?",
+                {
+                    productname: answer.product,
+                    departmentname: answer.department,
+                    price: answer.price,
+                    stockquantity: answer.quantity,
+                    product_sales: 0
+                },
+                function(err) {
+                    if (err) throw err;
+                    console.log("Your product was added successfully!");
+                    selectManagerTask();
+                }
+            ); // end connection query
+        }); // end function
+    }); // end connection query
 }; // end function
 
 selectManagerTask();

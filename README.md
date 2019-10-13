@@ -26,7 +26,13 @@ Here is the schema for the MySQL database supporting the app:
         * stockquantity
         * product_sales
  ````
-  
+#### MySQL create database setup
+
+To create the bamazon database run the query file called __bamazon_db_create.sql__, located in the __query__ folder.
+Import the following CSV files into MySQL to setup the database. These files are located in the __docs__ folder.
+   1. bamazon_products_data.CSV
+   2. bamazon_departments_data.CSV
+
 #### MySQL schema screenshots
 
 Bamazon Tables:
@@ -38,24 +44,20 @@ https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/products_colum
 Departments columns:
 https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/departments_columns.png
 
-
 ## How to run the app
 
 Follow these instructions for running the app:
 
 1. Fork the repository from this link: https//github.com/AlanLeverenz/Node-and-MySQL.
 2. Open Terminal and navigate to your Node-and-MySQL folder.
-3. Import the following CSV files into MySQL to setup the database. These files are located in the __docs__ folder.
-   1. bamazon_products_data.CSV
-   2. bamazon_departments_data.CSV
-4. Run `npm i` to install required modules (mysql, inquirer, console.table)
-5. Use this CLI to run the app as a *customer:*
+3. Run `npm i` to install required modules (mysql, inquirer, console.table)
+4. Use this CLI to run the app as a *customer:*
     `$ node bamazonCustomer`
-6. Use this CLI to run the app as a *manager:*
+5. Use this CLI to run the app as a *manager:*
     `$ node bamazonManager`
-7. Use this CLI to run the app as a *supervisor:*
+6. Use this CLI to run the app as a *supervisor:*
    `$ node bamazonSupervisor`
-8. Each user type is re-prompted until they select the Quit option.
+7. Each user type is re-prompted until they select the Quit option.
 
 ## User options
 
@@ -78,6 +80,7 @@ The supervisor can view profits calculated against overhead and purchases with q
 https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_view_product_sales.png
 
 ## Technologies
+
 Here are this app's NPM modules, databases, functions, and sample console/writeFile output:
 
 #### NPM Modules
@@ -85,9 +88,12 @@ Here are this app's NPM modules, databases, functions, and sample console/writeF
 * mysql
 * console.table
 
-__console.table__ is an NPM module that displays array objects in a table format on the command line:
+#### Console.table 
+__console.table__ is an NPM module that displays array objects in a command line table format:
 
 https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/view_product_list.png
+
+The code to generate the command line table:
 
 *Columns constructor*
 ````
@@ -99,14 +105,13 @@ var tableCols = function(department_id, department_name, over_head_costs, produc
   this.total_profit = total_profit
 }
 ````
-(run SELECT query on MySQL database...)
-
-*Build and display table array*
+*Run SELECT query to build and display table array*
 ````
-for(var i=0; i<res.length; i++) 
-  {
-    tableArr.push(new tableCols(res[i].department_id, res[i].department_name, res[i].over_head_costs, res[i].product_sales, res[i].total_profit));
-  }
+connection.query("SELECT D.department_id AS department_id, D.department_name AS department_name, D.over_head_costs AS over_head_costs, SUM(P.product_sales) AS product_sales, SUM(P.product_sales) - D.over_head_costs AS total_profit FROM departments D JOIN products P ON D.department_name = P.departmentname GROUP BY D.department_id ORDER BY D.department_id", function(err,res) {
+  for(var i=0; i<res.length; i++) 
+    {
+      tableArr.push(new tableCols(res[i].department_id, res[i].department_name, res[i].over_head_costs, res[i].product_sales, res[i].total_profit));
+    }
 console.table(tableArr);
 ````
 #### Author
