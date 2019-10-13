@@ -1,9 +1,6 @@
 var mysql = require('mysql');
 var inquirer = require('inquirer');
 require('console.table');
-require('cli-table');
-
-// var customer = require('./bamazonCustomer.js');
 
 // make mysql connection
 var connection = mysql.createConnection({
@@ -53,7 +50,6 @@ var showDepartments = function(){
 
 // View Department Sales
 var ViewDepartmentSales = function() {
-
     var tableArr = [];
     // constructor - console.table alternative solution
     var tableCols = function(department_id, department_name, over_head_costs, product_sales, total_profit) {
@@ -69,6 +65,7 @@ var ViewDepartmentSales = function() {
         {
             tableArr.push(new tableCols(res[i].department_id, res[i].department_name, res[i].over_head_costs, res[i].product_sales, res[i].total_profit));
         } // end for
+        console.log();
         console.table(tableArr);
         selectSupervisorTask();
     }); // end function, connection.query

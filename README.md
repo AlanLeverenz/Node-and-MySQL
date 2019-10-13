@@ -1,93 +1,113 @@
 # Node-and-MySQL
 A MySQL database driven by a Node.js app. 
 
-__Challenge #1: Customer View (Minimum Requirement)__
+## What the app does
 
-Create a MySQL Database called __bamazon__.
-Then create a Table inside of that database called __products__.
-The products table should have each of the following columns:
+This app is a simple non-ecommerce purchasing solution serving customer, manager, and supervisor roles. 
+__Customers__ can select from among products to purchase and set the quantity they wish to buy. 
+__Managers__ can view products on sale, check for low inventories, add to the inventory, and add new products for sale. 
+__Supervisors__ can check total profits for each department and add new departments. 
 
-* item_id (unique id for each product)
-* product_name (Name of product)
-* department_name
-* price (cost to customer)
-* stock_quantity (how much of the product is available in stores)
+## MySQL database
 
-Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
+Here is the schema for the MySQL database supporting the app:
+````
+* bamazon
+    * Tables
+      * departments
+        * department_id
+        * department_name
+        * over_head_costs
+      * products
+        * itemid
+        * productname
+        * departmentname
+        * price
+        * stockquantity
+        * product_sales
+ ````
+  
+#### MySQL schema screenshots
 
-Then create a Node application called __bamazonCustomer.js__. Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
+Bamazon Tables:
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/bamazon_tables.PNG
 
-The app should then prompt users with two messages.
-* The first should ask them the ID of the product they would like to buy.
-* The second message should ask how many units of the product they would like to buy.
+Products columns:
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/products_columns.PNG
 
-Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request. If not, the app should log a phrase like Insufficient quantity!, and then prevent the order from going through. 
-
-However, if your store does have enough of the product, you should fulfill the customer's order.
-This means updating the SQL database to reflect the remaining quantity.
-Once the update goes through, show the customer the total cost of their purchase.
-
-
-__Challenge #2: Manager View (Next Level)__
-
-Create a new Node application called __bamazonManager.js__. Running this application will:
-List a set of menu options:
-* View Products for Sale
-* View Low Inventory
-* Add to Inventory
-* Add New Product
-
-If a manager selects __View Products for Sale__, the app should list every available item: the item IDs, names, prices, and quantities.
-
-If a manager selects View __Low Inventory__, then it should list all items with an inventory count lower than five.
-
-If a manager selects __Add to Inventory__, your app should display a prompt that will let the manager "add more" of any item currently in the store.
-
-If a manager selects __Add New Product__, it should allow the manager to add a completely new product to the store.
+Departments columns:
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/departments_columns.PNG
 
 
-__Challenge #3: Supervisor View (Final Level)__
+## How to run the app
 
-Create a new MySQL table called __departments__. Your table should include the following columns:
+Follow these instructions for running the app:
 
-* department_id
-* department_name
-* over_head_costs (A dummy number you set for each department)
+1. Fork the repository from this link: https//github.com/AlanLeverenz/Node-and-MySQL.
+2. Open Terminal and navigate to your Node-and-MySQL folder.
+3. Import the following CSV files into MySQL to setup the database. These files are located in the __docs__ folder.
+   1. bamazon_products_data.CSV
+   2. bamazon_departments_data.CSV
+4. Run `npm i` to install required modules (mysql, inquirer, console.table)
+5. Use this CLI to run the app as a *customer:*
+    `$ node bamazonCustomer`
+6. Use this CLI to run the app as a *manager:*
+    `$ node bamazonManager`
+7. Use this CLI to run the app as a *supervisor:*
+   `$ node bamazonSupervisor`
+8. Each user type is re-prompted until they select the Quit option.
 
-Modify the products table so that there's a __product_sales column__, and modify your __bamazonCustomer.js__ app so that when a customer purchases anything from the store, the price of the product multiplied by the quantity purchased is added to the product's product_sales column.
+## User options
 
-Make sure your app still updates the inventory listed in the __products__ column.
+#### Customer purchase
 
-Create another Node app called __bamazonSupervisor.js__. Running this application will list a set of menu options:
-* View Product Sales by Department
-* Create New Department
+The customer is presented with a table of products to select from. They are prompted to enter the ID of the product they wish to buy, and how many.
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/customer_purchase_with_table.PNG
 
-When a supervisor selects __View Product Sales by Department__, the app should display a summarized table in their terminal/bash window. Use the table below as a guide.
+#### Manager options
 
-department_id
-department_name
-over_head_costs
-product_sales
-total_profit
+The manager is presented with five options:
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/manager_select_task.PNG
 
-01
-Electronics
-10000
-20000
-10000
+#### Supervisor options
 
-02
-Clothing
-60000
-100000
-40000
+The supervisor is presented with three options:
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_select_task.PNG
 
-The __total_profit__ column should be calculated on the fly using the difference between __over_head_costs__ and __product_sales__. *total_profit should not be stored in any database. You should use a custom alias*.
+The supervisor can view profits calculated against overhead and purchases with query that joins both the *products* and *departments*.
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_view_product_sales.PNG
 
-If you can't get the table to display properly after a few hours, then feel free to go back and just add total_profit to the departments table.
+## Technologies
+Here are this app's NPM modules, databases, functions, and sample console/writeFile output:
 
-Hint: You may need to look into aliases in MySQL.
-Hint: You may need to look into GROUP BYs.
-Hint: You may need to look into JOINS.
-HINT: There may be an NPM package that can log the table to the console. What's is it? Good question :)
+#### NPM Modules
+* inquirer
+* mysql
+* console.table
 
+__console.table__ is an NPM module that displays array objects in a table format on the command line:
+
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/view_product_list.PNG
+
+*Columns constructor*
+````
+var tableCols = function(department_id, department_name, over_head_costs, product_sales, total_profit) {
+  this.department_id = department_id;
+  this.department_name = department_name;
+  this.over_head_costs = over_head_costs;
+  this.product_sales = product_sales;
+  this.total_profit = total_profit
+}
+````
+(run SELECT query on MySQL database...)
+
+*build and display table array*
+````
+for(var i=0; i<res.length; i++) 
+  {
+    tableArr.push(new tableCols(res[i].department_id, res[i].department_name, res[i].over_head_costs, res[i].product_sales, res[i].total_profit));
+  }
+console.table(tableArr);
+````
+#### Author
+Alan Leverenz
