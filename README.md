@@ -71,6 +71,8 @@ https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/customer_purch
 The manager is presented with five options:
 https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/manager_select_task.png
 
+*Note:* When adding a new product the manager is limited to selecting a department that has been created by a supervisor. A rawlist is presented to select from. 
+
 #### Supervisor options
 
 The supervisor is presented with three options:
