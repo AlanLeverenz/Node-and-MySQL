@@ -30,13 +30,13 @@ Here is the schema for the MySQL database supporting the app:
 #### MySQL schema screenshots
 
 Bamazon Tables:
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/bamazon_tables.PNG
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/bamazon_tables.png
 
 Products columns:
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/products_columns.PNG
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/products_columns.png
 
 Departments columns:
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/departments_columns.PNG
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/departments_columns.png
 
 
 ## How to run the app
@@ -62,20 +62,20 @@ Follow these instructions for running the app:
 #### Customer purchase
 
 The customer is presented with a table of products to select from. They are prompted to enter the ID of the product they wish to buy, and how many.
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/customer_purchase_with_table.PNG
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/customer_purchase_with_table.png
 
 #### Manager options
 
 The manager is presented with five options:
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/manager_select_task.PNG
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/manager_select_task.png
 
 #### Supervisor options
 
 The supervisor is presented with three options:
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_select_task.PNG
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_select_task.png
 
 The supervisor can view profits calculated against overhead and purchases with query that joins both the *products* and *departments*.
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_view_product_sales.PNG
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_view_product_sales.png
 
 ## Technologies
 Here are this app's NPM modules, databases, functions, and sample console/writeFile output:
@@ -87,7 +87,7 @@ Here are this app's NPM modules, databases, functions, and sample console/writeF
 
 __console.table__ is an NPM module that displays array objects in a table format on the command line:
 
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/view_product_list.PNG
+https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/view_product_list.png
 
 *Columns constructor*
 ````
@@ -101,7 +101,7 @@ var tableCols = function(department_id, department_name, over_head_costs, produc
 ````
 (run SELECT query on MySQL database...)
 
-*build and display table array*
+*Build and display table array*
 ````
 for(var i=0; i<res.length; i++) 
   {
