@@ -35,14 +35,14 @@ Import the following CSV files into MySQL to setup the database. These files are
 
 #### MySQL schema screenshots
 
-Bamazon Tables:
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/bamazon_tables.png
+![Bamazon Tables:]
+(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/bamazon_tables.png)
 
-Products columns:
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/products_columns.png
+![Products columns:]
+(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/products_columns.png)
 
-Departments columns:
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/departments_columns.png
+![Departments columns:]
+(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/departments_columns.png)
 
 ## How to run the app
 
@@ -69,17 +69,17 @@ https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/customer_purch
 #### Manager options
 
 The manager is presented with five options:
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/manager_select_task.png
+(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/manager_select_task.png)
 
 *Note:* When adding a new product the manager is limited to selecting a department that has been created by a supervisor. A rawlist is presented to select from. 
 
 #### Supervisor options
 
 The supervisor is presented with three options:
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_select_task.png
+(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_select_task.png)
 
 The supervisor can view profits calculated against overhead and purchases with query that joins both the *products* and *departments*.
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_view_product_sales.png
+(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_view_product_sales.png)
 
 ## Technologies
 
