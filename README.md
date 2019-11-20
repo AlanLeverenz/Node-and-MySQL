@@ -25,7 +25,7 @@ Here is the schema for the MySQL database supporting the app:
         * price
         * stockquantity
         * product_sales
- ````
+````
 #### MySQL create database setup
 
 To create the bamazon database run the query file called __bamazon_db_create.sql__, located in the __query__ folder.
