@@ -35,14 +35,11 @@ Import the following CSV files into MySQL to setup the database. These files are
 
 #### MySQL schema screenshots
 
-![Bamazon Tables:]
-(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/bamazon_tables.png)
+![](images/bamazon_tables.png)
 
-![Products columns:]
-(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/products_columns.png)
+![](images/products_columns.png)
 
-![Departments columns:]
-(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/departments_columns.png)
+![](images/departments_columns.png)
 
 ## How to run the app
 
@@ -64,22 +61,26 @@ Follow these instructions for running the app:
 #### Customer purchase
 
 The customer is presented with a table of products to select from. They are prompted to enter the ID of the product they wish to buy, and how many.
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/customer_purchase_with_table.png
+
+![](images/customer_purchase_with_table.png)
 
 #### Manager options
 
 The manager is presented with five options:
-(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/manager_select_task.png)
+
+![](images/manager_select_task.png)
 
 *Note:* When adding a new product the manager is limited to selecting a department that has been created by a supervisor. A rawlist is presented to select from. 
 
 #### Supervisor options
 
 The supervisor is presented with three options:
-(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_select_task.png)
+
+![](images/supervisor_select_task.png)
 
 The supervisor can view profits calculated against overhead and purchases with query that joins both the *products* and *departments*.
-(https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/supervisor_view_product_sales.png)
+
+![](images/supervisor_view_product_sales.png)
 
 ## Technologies
 
@@ -93,11 +94,12 @@ Here are this app's NPM modules, databases, functions, and sample console/writeF
 #### Console.table 
 __console.table__ is an NPM module that displays array objects in a command line table format:
 
-https://github.com/alanleverenz/Node-and-MySQL/blob/master/images/view_product_list.png
+![](images/view_product_list.png)
 
 The code to generate the command line table:
 
 *Columns constructor*
+
 ````
 var tableCols = function(department_id, department_name, over_head_costs, product_sales, total_profit) {
   this.department_id = department_id;
@@ -107,7 +109,9 @@ var tableCols = function(department_id, department_name, over_head_costs, produc
   this.total_profit = total_profit
 }
 ````
+
 *Run SELECT query to build and display table array*
+
 ````
 connection.query("SELECT D.department_id AS department_id, D.department_name AS department_name, D.over_head_costs AS over_head_costs, SUM(P.product_sales) AS product_sales, SUM(P.product_sales) - D.over_head_costs AS total_profit FROM departments D JOIN products P ON D.department_name = P.departmentname GROUP BY D.department_id ORDER BY D.department_id", function(err,res) {
   for(var i=0; i<res.length; i++) 
@@ -116,5 +120,7 @@ connection.query("SELECT D.department_id AS department_id, D.department_name AS 
     }
 console.table(tableArr);
 ````
+
 #### Author
+
 Alan Leverenz
